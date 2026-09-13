@@ -1,8 +1,13 @@
 #include <iostream>
 using namespace std;
 
-void multiplyMatrices(int a[][2], int b[][2], int result[][2],
-                      int rowsA, int colsA, int colsB) {
+void multiplyMatrices(int a[][3], int b[][2], int result[][2],
+                      int rowsA, int colsA, int rowsB, int colsB) {
+    if (colsA != rowsB) {
+        cout << "Matrix multiplication cannot be performed." << endl;
+        return;
+    }
+
     for (int i = 0; i < rowsA; i++) {
         for (int j = 0; j < colsB; j++) {
             result[i][j] = 0;
@@ -12,44 +17,50 @@ void multiplyMatrices(int a[][2], int b[][2], int result[][2],
             }
         }
     }
-}
 
-void displayMatrix(int mat[][2], int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            cout << mat[i][j] << "\t";
+    cout << "Result:" << endl;
+
+    for (int i = 0; i < rowsA; i++) {
+        for (int j = 0; j < colsB; j++) {
+            cout << result[i][j] << "\t";
         }
         cout << endl;
     }
 }
 
 int main() {
-    int A[2][2] = {
-        {1, 2},
-        {3, 4}
+    int A[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}
     };
 
-    int B[2][2] = {
-        {5, 6},
-        {7, 8}
+    int B[3][2] = {
+        {7, 8},
+        {9, 10},
+        {11, 12}
     };
 
     int result[2][2];
 
-    multiplyMatrices(A, B, result, 2, 2, 2);
-
-    cout << "Matrix A:" << endl;
-    displayMatrix(A, 2, 2);
+    cout << "Test Case 1: Compatible Matrices (2 x 3) x (3 x 2)" << endl;
+    multiplyMatrices(A, B, result, 2, 3, 3, 2);
 
     cout << endl;
 
-    cout << "Matrix B:" << endl;
-    displayMatrix(B, 2, 2);
+    int C[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
 
-    cout << endl;
+    int D[2][2] = {
+        {7, 8},
+        {9, 10}
+    };
 
-    cout << "Result (A x B):" << endl;
-    displayMatrix(result, 2, 2);
+    int result2[2][2];
+
+    cout << "Test Case 2: Incompatible Matrices (2 x 3) x (2 x 2)" << endl;
+    multiplyMatrices(C, D, result2, 2, 3, 2, 2);
 
     return 0;
 }
