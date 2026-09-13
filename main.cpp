@@ -1,8 +1,7 @@
-
 #include <iostream>
 using namespace std;
 
-void displayMatrix(int mat[][4], int rows, int cols) {
+void displayMatrix(int mat[][3], int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
             cout << mat[i][j] << "\t";
@@ -11,86 +10,43 @@ void displayMatrix(int mat[][4], int rows, int cols) {
     }
 }
 
-int sumMatrix(int mat[][4], int rows, int cols) {
-    int total = 0;
+void addMatrices(int a[][3], int b[][3], int result[][3], int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            total += mat[i][j];
+            result[i][j] = a[i][j] + b[i][j];
         }
     }
-    return total;
-}
-
-double averageMatrix(int mat[][4], int rows, int cols) {
-    return (double)sumMatrix(mat, rows, cols) / (rows * cols);
-}
-
-int findMaximum(int mat[][4], int rows, int cols) {
-    int maximum = mat[0][0];
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            if (mat[i][j] > maximum) {
-                maximum = mat[i][j];
-            }
-        }
-    }
-
-    return maximum;
-}
-
-int findMinimum(int mat[][4], int rows, int cols) {
-    int minimum = mat[0][0];
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            if (mat[i][j] < minimum) {
-                minimum = mat[i][j];
-            }
-        }
-    }
-
-    return minimum;
-}
-
-int countAboveThreshold(int mat[][4], int rows, int cols, int threshold) {
-    int count = 0;
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            if (mat[i][j] > threshold) {
-                count++;
-            }
-        }
-    }
-
-    return count;
 }
 
 int main() {
-    int image[4][4] = {
-        {10, 50, 100, 150},
-        {20, 60, 110, 160},
-        {30, 70, 120, 170},
-        {40, 80, 130, 180}
+    int A[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
     };
 
-    int rows = 4;
-    int cols = 4;
-    int threshold = 128;
+    int B[3][3] = {
+        {9, 8, 7},
+        {6, 5, 4},
+        {3, 2, 1}
+    };
 
-    cout << "Image Grid:" << endl;
-    displayMatrix(image, rows, cols);
+    int sum[3][3];
+
+    addMatrices(A, B, sum, 3, 3);
+
+    cout << "Matrix A:" << endl;
+    displayMatrix(A, 3, 3);
 
     cout << endl;
-    cout << "Sum: " << sumMatrix(image, rows, cols) << endl;
-    cout << "Average: " << averageMatrix(image, rows, cols) << endl;
-    cout << "Maximum: " << findMaximum(image, rows, cols) << endl;
-    cout << "Minimum: " << findMinimum(image, rows, cols) << endl;
-    cout << "Count Above " << threshold << ": "
-         << countAboveThreshold(image, rows, cols, threshold) << endl;
+
+    cout << "Matrix B:" << endl;
+    displayMatrix(B, 3, 3);
+
+    cout << endl;
+
+    cout << "Result (A + B):" << endl;
+    displayMatrix(sum, 3, 3);
 
     return 0;
 }
-
-
