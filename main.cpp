@@ -10,10 +10,10 @@ void displayMatrix(int mat[][3], int rows, int cols) {
     }
 }
 
-void addMatrices(int a[][3], int b[][3], int result[][3], int rows, int cols) {
+void subtractMatrices(int a[][3], int b[][3], int result[][3], int rows, int cols) {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            result[i][j] = a[i][j] + b[i][j];
+            result[i][j] = a[i][j] - b[i][j];
         }
     }
 }
@@ -31,22 +31,20 @@ int main() {
         {3, 2, 1}
     };
 
-    int sum[3][3];
+    int differenceAB[3][3];
+    int differenceBA[3][3];
 
-    addMatrices(A, B, sum, 3, 3);
+    subtractMatrices(A, B, differenceAB, 3, 3);
+    subtractMatrices(B, A, differenceBA, 3, 3);
 
-    cout << "Matrix A:" << endl;
-    displayMatrix(A, 3, 3);
-
-    cout << endl;
-
-    cout << "Matrix B:" << endl;
-    displayMatrix(B, 3, 3);
+    cout << "A - B:" << endl;
+    displayMatrix(differenceAB, 3, 3);
 
     cout << endl;
 
-    cout << "Result (A + B):" << endl;
-    displayMatrix(sum, 3, 3);
+    cout << "B - A:" << endl;
+    displayMatrix(differenceBA, 3, 3);
 
     return 0;
 }
+
